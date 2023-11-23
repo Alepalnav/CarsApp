@@ -2,6 +2,8 @@ const express = require('express')
 const app = express() ;
 const cors = require('cors');
 const CarRoutes = require('./routes/indexCar')
+const ClientRoutes = require('./routes/indexClient')
+const EmployeeRoutes = require('./routes/indexEmployee')
 
 require('dotenv').config(); 
 
@@ -17,7 +19,9 @@ main().catch((err)=>console.log(err));
 app.use(cors());
 app.use(express.json());
 
-app.use('/marcas',CarRoutes);
+app.use('/cars',CarRoutes);
+app.use('/clients',ClientRoutes);
+app.use('/employees',EmployeeRoutes);
 
 
 // Iniciar el servidor en el puerto 3000

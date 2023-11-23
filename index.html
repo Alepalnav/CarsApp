@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Consumir API de Cars</title>
+</head>
+<body>
+  <h1>Cars:</h1>
+  <ul id="carsList"></ul>
+  <script>
+    const carsList = document.getElementById("carsList");
+
+    // Realizar una solicitud para obtener la lista de usuarios desde la API
+    fetch("http://localhost:3000/cars")
+      .then((response) => response.json())
+      .then((data) => {
+        data.forEach((car) => {
+          const listItem = document.createElement("li");
+          listItem.textContent = `marca: ${car.marca},  modelo: ${car.modelo}`;
+          carsList.appendChild(listItem);
+        });
+      })
+      .catch((error) => console.error("Error al obtener la lista de cars: " + error));
+  </script>
+
+</body>
+</html>
