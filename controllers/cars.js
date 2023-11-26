@@ -30,12 +30,16 @@ const addCars = async (req,res)=>{
 
     const car = req.body;
     const newCar = new Car(car);
+    const newCar2 = await Car.findOne({car})
+    if(newCar2){
+        return res.status(400).send("This Car already exists");
+    }
     try{
         await newCar.save();
         res.status(201).json(newCar);
     }catch(err){
         console.log(err)
-        res.status(409).send("This Car already exists");
+        res.status(409).send("Not possible");
     }
 }
 
@@ -43,12 +47,32 @@ const deleteCars = async (req,res)=>{
 
     try{
         const id = req.params.id;
-        const car = await Car.findOneAndDelete({_id:id});
+        const car = await Car.findOneAndDelete({"_id":id});
+        
         res.status(201).json(car);
     }catch(err){
         res.status(500).json({msg:err})
     }
 }
 
+const updateCar = async(req,res)=>{
+    const id= req.params.id;
 
-module.exports = {getCars, getCarById, addCars, deleteCars}
+    const car = await Car.find({_id:id});
+
+    const newCar = req.body;
+    try{
+
+        if(!car.length){
+            return res.status(404).json({msg:'No existe el coche'});
+        }
+
+        await Car.updateOne({_id:id},newCar);
+        res.json(newCar);
+    }catch(err){
+        res.status(500).json({msg:err})
+    }
+}
+
+
+module.exports = {getCars, getCarById, addCars, deleteCars, updateCar}

@@ -23,4 +23,27 @@ const addEmployees = async (req,res)=>{
     }
 }
 
-module.exports={getEmployees,addEmployees}
+const deleteEmployees = async (req,res)=>{
+    try{
+        const id = req.params.id;
+        const employee = await Employee.findOneAndDelete({"_id":id});
+        res.status(201).json(employee);
+    }catch(err){
+        res.status(500).json({msg:err})
+    }
+}
+
+const getEmployeeById = async (req, res) =>{
+    try{
+        const employee = await Employee.findOne();
+        if(!employee){
+            return res.status(404).json({message: "Employee not found"
+            });
+            }
+            res.status(200).json(employee);
+            }catch{
+                res.status(500).json({message:error});
+                }
+                }
+
+module.exports={getEmployees,addEmployees,deleteEmployees,getEmployeeById}

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const {check} = require('express-validator');
-const {getCars, addCars, deleteCars, getCarById} = require('../controllers/cars');
+const {getCars, addCars, deleteCars, getCarById, updateCar} = require('../controllers/cars');
 const {validateFields} = require("../middlewares/validate-fields");
 
 
@@ -15,6 +15,13 @@ router.post('/',[
     check('year', 'Year must be a number').isNumeric(),
     validateFields
 ],addCars)
+
+router.put('/:id',[
+    check('marca','Marca is required').not().isEmpty(),
+    check('modelo','Modelo is required').not().isEmpty(),
+    check('year', 'Year must be a number').isNumeric(),
+    validateFields
+],updateCar)
 
 router.delete('/:id',deleteCars)
 
