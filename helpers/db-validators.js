@@ -8,3 +8,4 @@ const existsEmail = async(email)=> {
 }
 
 module.exports = {existsEmail}
+

@@ -13,7 +13,8 @@ const getCars = async (req, res) =>{
 //realiza getCars por id
 const getCarById = async (req, res) =>{
     try{
-        const car = await Car.findOne();
+        const id = req.params.id;
+        const car = await Car.findById(id);
         if(!car){
             return res.status(404).json({message: "Car not found"
             });
@@ -27,7 +28,6 @@ const getCarById = async (req, res) =>{
 
 
 const addCars = async (req,res)=>{
-
     const car = req.body;
     const newCar = new Car(car);
     const newCar2 = await Car.findOne({car})
