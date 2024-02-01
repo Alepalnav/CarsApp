@@ -4,6 +4,7 @@ const cors = require('cors');
 const CarRoutes = require('./routes/indexCar')
 const ClientRoutes = require('./routes/indexClient')
 const EmployeeRoutes = require('./routes/indexEmployee')
+const UserRoutes = require('./routes/indexUser')
 
 require('dotenv').config(); 
 
@@ -22,7 +23,7 @@ app.use(express.json());
 app.use('/cars',CarRoutes);
 app.use('/clients',ClientRoutes);
 app.use('/employees',EmployeeRoutes);
-
+app.use('/users',UserRoutes);
 
 // Iniciar el servidor en el puerto 3000
 app.listen(process.env.PORT, () => {
